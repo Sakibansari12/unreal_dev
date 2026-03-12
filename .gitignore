@@ -1,0 +1,45 @@
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+storage/
+public/storage
+public/hot
+
+# Laravel 5 & Lumen specific with changed public path
+public_html/storage
+public_html/hot
+
+# Environment files
+.env
+.env.backup
+.env.productions
+
+# Homestead & Vagrant
+Homestead.yaml
+Homestead.json
+/.vagrant
+
+# PHPUnit
+.phpunit.result.cache
+
+# Laravel Mix / Vite
+/public/build
+
+# Laravel specific extra
+storage/*.key
+/storage/pail
+.phpactor.json
+auth.json
+
+# Ignore backup and archive files
+*.zip
+*.rar
+*.tar.gz
+*.7z

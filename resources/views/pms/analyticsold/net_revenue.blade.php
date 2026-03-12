@@ -1,0 +1,207 @@
+@extends('pms.layouts.app')
+@section('content') <!-- Assuming you have a layout file -->
+
+
+<section class="section">
+        <div class="container-fluid">
+
+    
+            <div class="col-12">
+                <div class="row gy-3">
+                    <div class="col align-self-end">
+                        <h1 class="h2 mb-0">Net Revenue</h1>
+                    </div>
+                </div>
+            </div>
+
+ <div class="content-box p-3">
+                <div class="page-title">
+
+            <div class="col-12">
+                <div class="search-filter">
+                    <form method="GET" action="{{ route('pms.analytics.net_revenue') }}">
+                        <div class="row gy-3 gx-2">
+                            <div class="col-auto position-relative">
+                                <div class="row justify-content-xl-end gy-3 gx-2">
+                                    <div class="col-12 col-lg col-xl-auto">
+                                        <div class="form-group mb-0">
+                                            <select class="form-control" name="property_id" id="propertySelect" style="min-width:250px;">
+                                                <option value="" {{ !request('property_id') ? 'selected' : '' }} disabled>Property Name</option>
+                                                @foreach($properties as $property)
+                                                    <option value="{{ $property->ru_property_id }}"
+                                                            data-ptype="{{ $property->pType }}"
+                                                            {{ request('property_id') == $property->ru_property_id ? 'selected' : '' }}>
+                                                        {{ $property->property_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <!-- Hidden input to carry selected pType -->
+                                            <input type="hidden" name="pType" id="pTypeInput" value="{{ request('pType') }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg col-xl-auto">
+                                        <div class="form-group mb-0">
+                                            <select class="form-control" name="location_id">
+                                                <option value="" {{ !request('location_id') ? 'selected' : '' }} disabled>Location</option>
+                                                @foreach($locations as $location)
+                                                    <option value="{{ $location->location_id }}" {{ request('location_id') == $location->location_id ? 'selected' : '' }}>
+                                                        {{ $location->location_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg col-xl-auto">
+                                        <div class="form-group mb-0">
+                                            <select class="form-control" name="channel">
+                                                <option value="" {{ !request('channel') ? 'selected' : '' }} disabled>Channel</option>
+                                                @foreach($channels as $channel)
+                                                    <option value="{{ $channel }}" {{ request('channel') == $channel ? 'selected' : '' }}>
+                                                        {{ $channel }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg col-xl-auto">
+                                        <div class="row gy-3 gx-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="date_range" id="dateRangePicker"
+                                                       value="{{ request('date_range') }}"
+                                                       placeholder="From - To" style="min-width: 240px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-auto">
+                                        <div class="btn-group gap-1">
+                                            <button type="submit" class="btn btn-primary btn-icon">
+                                                <span class="bi bi-search"></span>
+                                            </button>
+                                            <a href="{{ route('pms.analytics.net_revenue') }}" class="btn btn-icon btn-clear btn-warning">
+                                                <span class="bi bi-arrow-clockwise"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto ms-xxl-auto">
+                                <select class="form-control" name="days" onchange="this.form.submit()">
+                                    <option value="" disabled {{ !request('days') ? 'selected' : '' }}>Select days</option>
+                                    <option value="7_next" {{ request('days') == '7_next' ? 'selected' : '' }}>Next 7 days</option>
+                                    <option value="7" {{ request('days') == '7' ? 'selected' : '' }}>Last 7 days</option>
+                                    <option value="30" {{ request('days') == '30' ? 'selected' : '' }}>Last 30 days</option>
+                                    <option value="60" {{ request('days') == '60' ? 'selected' : '' }}>Last 60 days</option>
+                                    <option value="90" {{ request('days') == '90' ? 'selected' : '' }}>Last 90 days</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+
+    <section class="section">
+        <div class="outer-wrapper">
+            @if($isListLoading)
+                <div class="d-flex justify-content-center align-items-center h-100 py-5">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            @elseif($dataList->isNotEmpty())
+                <div class="table-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-list-2 align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th width="150" class="bg-primary text-white">Booking Date</th>
+                                    <th class="bg-primary text-white">Location</th>
+                                    <th class="bg-primary text-white">Property Name</th>
+                                    <th class="bg-primary text-white">Channel</th>
+                                    <th class="bg-primary text-white text-end">Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($dataList as $data)
+                                    <tr>
+                                        <td nowrap>
+                                            <b><i class="bi bi-calendar2-check"></i> {{ \Carbon\Carbon::parse($data->checkin_date)->format('d M, Y') }}</b>
+                                        </td>
+                                        <td nowrap>{{ $data->location }}</td>
+                                        <td nowrap>{{ $data->property_name }}</td>
+                                        <td>{{ $data->channel }}</td>
+                                        <td class="text-end">
+                                            <b class="text-black">₹{{ number_format($data->revenue, 2) }}</b>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <div class="py-5 px-3">
+                    No Data Found...!
+                </div>
+            @endif
+        </div>
+    </section>
+
+    @if(!$isListLoading && $dataList->isNotEmpty())
+        <div class="card card-chartBox bg-transparent">
+            <div class="card-body p-2">
+                <div class="row g-3 justify-content-end align-items-center">
+                    <div class="col">
+                        {{ $dataList->links() }}
+                    </div>
+                    <div class="col-auto">
+                        <h4 class="text-primary m-0">
+                            <span class="text-dark">Net Revenue:</span>
+                            <b>₹{{ number_format($netRevenue, 2) }}</b>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    </div>
+    </div>
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        flatpickr("#dateRangePicker", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            onChange: function(selectedDates) {
+                if (selectedDates.length === 2) {
+                    document.querySelector('select[name="days"]').value = '';
+                }
+            },
+            onClose: function(selectedDates) {
+                if (selectedDates.length === 0) {
+                    document.querySelector('input[name="date_range"]').value = '';
+                }
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const propertySelect = document.getElementById('propertySelect');
+        const pTypeInput = document.getElementById('pTypeInput');
+        if (propertySelect) {
+            propertySelect.addEventListener('change', function () {
+                const selectedOption = this.options[this.selectedIndex];
+                const pType = selectedOption.getAttribute('data-ptype') || '';
+                console.log("Selected pType:", pType);
+                if (pTypeInput) {
+                    pTypeInput.value = pType;
+                }
+            });
+        }
+    });
+</script>
+@endsection

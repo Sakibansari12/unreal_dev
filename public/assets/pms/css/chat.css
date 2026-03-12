@@ -1,0 +1,274 @@
+
+.chatContainer {
+   border-radius: 10px;
+   overflow: hidden;
+   -webkit-box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+   background-color: #fff
+}
+
+.chatContainer .top-bar {
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-align: center;
+   -ms-flex-align: center;
+   align-items: center;
+   -webkit-box-pack: justify;
+   -ms-flex-pack: justify;
+   justify-content: space-between;
+   padding: 10px 15px;
+   color: white;
+   position: relative;
+   overflow-x: auto;
+   width: 100%;
+   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1)
+}
+
+.chatContainer .logo-wrapper {
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   gap: 15px;
+   -webkit-box-align: center;
+   -ms-flex-align: center;
+   align-items: center;
+   position: relative
+}
+
+.chatContainer .otaLogo {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   background: white;
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-pack: center;
+   -ms-flex-pack: center;
+   justify-content: center;
+   -webkit-box-align: center;
+   -ms-flex-align: center;
+   align-items: center;
+   position: relative
+}
+
+.chatContainer .otaLogo img {
+   max-width: 100%;
+   max-height: 100%;
+   border-radius: 50%
+}
+
+.chatContainer .otaLogo .notification {
+   position: absolute;
+   top: -5px;
+   right: -5px;
+   background: #C79F62;
+   color: white;
+   font-size: 10px;
+   padding: 2px 6px;
+   border-radius: 50%
+}
+
+.chatContainer .chat-container {
+   -webkit-box-flex: 1;
+   -ms-flex: 1;
+   flex: 1;
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   height: calc(90vh - 60px)
+}
+
+.chatContainer .thread-list {
+   width: 25%;
+   overflow-y: auto;
+   border-right: 1px solid #ebeaf1
+}
+
+.chatContainer .thread-list .thread {
+   padding: 10px;
+   cursor: pointer;
+   border-bottom: 1px solid #ebeaf1
+}
+
+.chatContainer .thread-list .thread.unread {
+   background-color: #f7f0e6
+}
+
+.chatContainer .thread-list .thread:hover {
+   background: #f7f0e6
+}
+
+.chatContainer .thread-list .thread .date {
+   font-size: 10px;
+   color: #888;
+   margin-top: 5px
+}
+
+.chatContainer .chat-area {
+   width: 75%;
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-orient: vertical;
+   -webkit-box-direction: normal;
+   -ms-flex-direction: column;
+   flex-direction: column;
+   background: #fff
+}
+
+.chatContainer .chat-area .messages {
+   -webkit-box-flex: 1;
+   -ms-flex: 1;
+   flex: 1;
+   padding: 15px;
+   overflow-y: auto
+}
+
+.chatContainer .chat-area .messages .message {
+   margin-bottom: 15px;
+   max-width: 90%;
+   padding: 10px;
+   border-radius: 15px;
+   position: relative;
+   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+}
+
+.chatContainer .chat-area .messages .message.attachment {
+   padding-right: 40px
+}
+
+.chatContainer .chat-area .messages .message.attachment .attachedFile {
+   position: absolute;
+   right: 8px;
+   width: 20px;
+   top: 50%;
+   -webkit-transform: translateY(-50%);
+   -ms-transform: translateY(-50%);
+   transform: translateY(-50%);
+   color: #000
+}
+
+.chatContainer .chat-area .messages .message .time {
+   font-size: 10px;
+   color: #666;
+   margin-top: 5px;
+   display: block
+}
+
+.chatContainer .chat-area .messages .sent {
+   margin-left: auto;
+   background: #f7f0e6;
+   border-top-left-radius: 0
+}
+
+.chatContainer .chat-area .messages .received {
+   margin-right: auto;
+   background: #F1F3FF;
+   color: black;
+   border-bottom-left-radius: 0
+}
+
+.chatContainer .chat-area .chat-input-area {
+   -webkit-box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.1);
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   padding: 10px;
+   background: #fff;
+   -ms-flex-negative: 0;
+   flex-shrink: 0;
+   gap: 10px
+}
+
+.chatContainer .chat-area .chat-input-area input,
+.chatContainer .chat-area .chat-input-area label,
+.chatContainer .chat-area .chat-input-area button {
+   height: 44px;
+   line-height: 44px;
+   border-radius: 50px;
+   border: 0px;
+   background-color: #ebeaf1;
+   padding: 3px 10px
+}
+
+.chatContainer .chat-area .chat-input-area input {
+   width: 100%
+}
+
+.chatContainer .chat-area .chat-input-area label,
+.chatContainer .chat-area .chat-input-area button {
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-align: center;
+   -ms-flex-align: center;
+   align-items: center;
+   -webkit-box-pack: center;
+   -ms-flex-pack: center;
+   justify-content: center
+}
+
+.chatContainer .chat-area .chat-input-area button {
+   background-color: #C79F62;
+   color: #fff
+}
+
+@media (max-width: 991px) {
+   .chatContainer .thread-list {
+      width: 30%
+   }
+
+   .chatContainer .chat-area {
+      width: 70%
+   }
+}
+
+.chatContainer .chat-back-btn {
+   display: none
+}
+
+@media (max-width: 768px) {
+   .chatContainer .chat-back-btn {
+      display: block;
+      background-color: #C79F62;
+      color: #fff;
+      border: 0;
+      padding: 4px 12px
+   }
+
+   .chatContainer .chat-body {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column
+   }
+
+   .chatContainer .thread-list,
+   .chatContainer .chat-area {
+      width: 100%
+   }
+
+   .chatContainer .chat-area {
+      display: none
+   }
+
+   .chatContainer .chat-area.active {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex
+   }
+
+   .chatContainer .thread-list.hidden {
+      display: none
+   }
+
+   .chatContainer .back-btn {
+      display: inline-block;
+      margin-right: 10px
+   }
+}

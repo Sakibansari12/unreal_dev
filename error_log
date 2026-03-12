@@ -1,0 +1,1 @@
+[12-May-2025 05:26:23 UTC] PHP Fatal error:  Cannot use App\Http\Controllers\RuBookingController as RuBookingController because the name is already in use in /home/dummytempsite/public_html/routes/web.php on line 9
